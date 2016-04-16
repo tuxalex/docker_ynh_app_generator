@@ -1,0 +1,55 @@
+{
+    "name": "<app>_docker",
+    "id": "<app>_docker",
+    "description": {
+        "en": "Build app inside docker container for yunohost",
+        "fr": "Construit l'application à l'intérieur d'un conteneur docker pour yunohost"
+    },
+    "developer": {
+        "name": "tuxalex"
+    },
+    "multi_instance": "true",
+    "arguments": {
+        "install": [
+            {
+                "name": "domain",
+                "type": "domain",
+                "ask": {
+                    "en": "Chooze your domain",
+                    "fr": "Choisissez votre domaine"
+                },
+                "example": "domain.org"
+            },
+            {
+                "name": "path",
+                "type": "path",
+                "ask": {
+                    "en": "Choose a path",
+                    "fr": "Choisissez un chemin"
+                },
+                "default": "/<app>",
+                "example": "/path"
+            },
+            {
+                "name": "is_public",
+                "ask": {
+                    "en": "Is it a public redirection ?",
+                    "fr": "Est-ce une redirection publique ?"
+                },
+                "choices": [
+                    "Yes",
+                    "No"
+                ],
+                "default": "No"
+            },
+	    {
+                "name": "username",
+                "ask": {
+                    "en": "Install for witch user ?",
+                    "fr": "Installer pour quel utilisateur ?"
+                },
+                "example": "johndoe"
+            }
+        ]
+    }
+}
