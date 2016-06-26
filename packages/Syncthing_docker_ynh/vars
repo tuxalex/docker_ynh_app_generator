@@ -1,0 +1,28 @@
+# manifest.json
+APP="Syncthing"
+ID="syncthing"
+URL="github.com"
+LICENCE="free"
+NAME="tuxalex"
+EMAIL="tuxy\@tuxcloud.fr"
+VERSION="1.1"
+
+# package script
+REDIRECTED_PORT="8384"
+NOT_REDIRECTED_PORTS="22000, 21027"
+MULTI_USERS="false"
+
+# dockerfile
+DOCKERFILE_URL=""
+DOCKERFILE_PATH=""
+
+# dockerhub
+DOKERHUB_IMAGE=""
+
+# nginx
+NGINXCONF_URL=""
+NGINXCONF_PATH=""
+
+# this script
+GIT_REPO_URL=""
+REMOTE_ADD=false

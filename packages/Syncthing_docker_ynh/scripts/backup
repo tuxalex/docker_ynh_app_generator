@@ -1,0 +1,21 @@
+#! /bin/bash
+# Exit on command errors and treat unset variables as an error
+set -eu
+
+# Retrieve app settings
+app=$YNH_APP_INSTANCE_NAME
+path=$(ynh_app_setting_get $app path)
+domain=$(ynh_app_setting_get $app domain)
+username=$(ynh_app_setting_get $app user)
+containername=${path#/}_${username}
+
+# Source YunoHost helpers
+. /usr/share/yunohost/helpers
+
+# Backup sources & data
+# Note: the last argument is where to save this path, see the restore script.
+ynh_backup "/home/yunohost.docker/container-${app}/${username}" "sources"
+output=$(sudo python backup_container.py $app $username $containername)
+
+# Copy NGINX configuration
+ynh_backup "/etc/nginx/conf.d/${domain}.d/${app}.conf" "nginx.conf"
