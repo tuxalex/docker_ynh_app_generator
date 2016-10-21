@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 # Exit on command errors and treat unset variables as an error
 set -eu
 
@@ -10,7 +10,7 @@ username=$(ynh_app_setting_get $app user)
 containername=${path#/}_${username}
 
 # Source YunoHost helpers
-. /usr/share/yunohost/helpers
+source /usr/share/yunohost/helpers
 
 # Backup sources & data
 # Note: the last argument is where to save this path, see the restore script.

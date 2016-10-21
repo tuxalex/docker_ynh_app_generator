@@ -4,10 +4,10 @@
 set -eu
 
 app=$YNH_APP_INSTANCE_NAME
-redirectport=8384
-notredirectports=(22000, 21027)
-allports=(8384, 22000, 21027)
-support_multiuser=false
+redirectport=<REDIRECTED_PORT>
+notredirectports=(<NOT_REDIRECTED_PORTS>)
+allports=(<REDIRECTED_PORT>, <NOT_REDIRECTED_PORTS>)
+support_multiuser=<MULTI_USERS>
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN #($1)
@@ -38,7 +38,7 @@ ynh_app_setting_set $app language $language
 # Check if user is available
 sudo yunohost user list --json | grep -q "\"username\": \"$username\""
 if [[ ! $? -eq 0 ]]; then
-  	exit 1
+  	return 1
 fi
 
 # Remove trailing "/" for next commands and add user name path
@@ -54,7 +54,7 @@ containername=${path#/}_${username}
 # Check domain/path availability
 domain=${domain%/}
 sudo yunohost app checkurl ${domain}${path} -a $app \
-#	|| (echo "Path not available: ${domain}${path}" && exit 1)
+#	|| (echo "Path not available: ${domain}${path}" && return 1)
 	|| ynh_die "Path not available: ${domain}${path}"
 
 dockerized=True
@@ -83,7 +83,7 @@ if [ ! -f /.dockerinit ]; then
         #Only one port is redirect by nginx (http or https port), test if this port is available
         sudo yunohost app checkport $redirectport
         if [[ ! $? -eq 0 ]]; then
-              exit 1
+              return 1
         fi
 
         #Multiple ports can be open and not redirecting by nginx, test if those ports are available and open it
@@ -91,7 +91,7 @@ if [ ! -f /.dockerinit ]; then
         do
                 sudo yunohost app checkport $nrp
                 if [[ ! $? -eq 0 ]]; then
-                        exit 1
+                        return 1
                 fi
                 #Open non redirect port 
                 sudo yunohost firewall allow TCP $nrp
@@ -133,7 +133,7 @@ if [ "$owncloud" = "Yes" ];then
 	if [ $? -eq 0 ];then
 			datapath="/home/yunohost.app/owncloud/data/${username}/files/"
 	else 
-		exit 1
+		return 1
 	fi
 else
         if [ ! -d /home/yunohost.docker/container-${app}/${username}/data/ ]; then
@@ -156,15 +156,15 @@ ip=127.0.0.1
 if [ -f /bin/systemd ]; then
 	#Manage container as daemon with systemd - only compatible with Debian Jessie & YNH 2.2
 	sudo sed -i "s@CONTAINERNAME@$containername@g" ../conf/systemd.service
-	sudo cp ../conf/systemd.service /etc/systemd/system/container-$containername.service
-	sudo chmod 777 /etc/systemd/system/container-$containername.service
-	sudo systemctl enable /etc/systemd/system/container-$containername.service
+	sudo cp ../conf/systemd.service /lib/systemd/system/container-$containername.service
+	sudo chmod +x /lib/systemd/system/container-$containername.service
+	sudo systemctl enable /lib/systemd/system/container-$containername.service
 	sudo systemctl daemon-reload
 else
 	#Manage container as daemon with sysV
 	sudo sed -i "s@CONTAINERNAME@$containername@g" ../conf/sysv.sh
 	sudo cp ../conf/sysv.sh /etc/init.d/$containername
-	sudo chmod 777 /etc/init.d/$containername
+	sudo chmod +x /etc/init.d/$containername
 	sudo update-rc.d $containername defaults
 fi
 

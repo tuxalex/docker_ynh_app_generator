@@ -9,4 +9,4 @@ ExecStop=/ur/bin/python -c "from docker import Client; cli = Client(base_url='un
 ExecRestart=/ur/bin/python -c "from docker import Client; cli = Client(base_url='unix://docker.sock'); cli.restart(container='CONTAINERNAME')"
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=local.target

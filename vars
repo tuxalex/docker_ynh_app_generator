@@ -1,3 +1,8 @@
+#####################################################################
+#																	#
+# Define here variables use in package script and manifest.json     #
+#																	#
+#####################################################################
 # manifest.json
 APP="Syncthing"
 ID="syncthing"

@@ -1,14 +1,24 @@
 {
-    "name": "<app>_docker",
-    "id": "<app>_docker",
+    "name": "<APP>_docker",
+    "id": "<ID>_docker",
+    "packaging_format": 1,
     "description": {
         "en": "Build app inside docker container for yunohost",
         "fr": "Construit l'application à l'intérieur d'un conteneur docker pour yunohost"
     },
-    "developer": {
-        "name": "tuxalex"
+    "url": "<URL>",
+    "license": "<LICENCE>",
+    "maintainer": {
+        "name": "<NAME>",
+        "email": "<EMAIL>"
     },
-    "multi_instance": "true",
+    "requirements": {
+        "yunohost": "<VERSION>"
+    },
+    "multi_instance": true,
+    "services": [
+        "nginx"
+    ],
     "arguments": {
         "install": [
             {
@@ -27,7 +37,7 @@
                     "en": "Choose a path",
                     "fr": "Choisissez un chemin"
                 },
-                "default": "/<app>",
+                "default": "/test",
                 "example": "/path"
             },
             {
@@ -42,13 +52,22 @@
                 ],
                 "default": "No"
             },
-	    {
+	        {
                 "name": "username",
                 "ask": {
                     "en": "Install for witch user ?",
                     "fr": "Installer pour quel utilisateur ?"
                 },
                 "example": "johndoe"
+            },
+            {
+                "name": "language",
+                "ask": {
+                    "en": "Choose the application language",
+                    "fr": "Choisissez la langue de l'application"
+                },
+                "choices": ["fr", "en"],
+                "default": "fr"
             }
         ]
     }

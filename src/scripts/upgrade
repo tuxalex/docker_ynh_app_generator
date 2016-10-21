@@ -4,8 +4,8 @@
 set -eu
 
 app=$YNH_APP_INSTANCE_NAME
-allports=(8384, 22000, 21027)
-support_multiuser=false
+allports=(<REDIRECTED_PORT>, <NOT_REDIRECTED_PORTS>)
+support_multiuser=<MULTI_USERS>
 
 # Source YunoHost helpers
 . /usr/share/yunohost/helpers

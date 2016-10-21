@@ -32,8 +32,9 @@ else:
 
 	config=cli.create_host_config(port_bindings=tab_ports)
 
-#Build docker image with the Dockerfile and disply the output
-for line in cli.build(path='../build/', tag=imagename, rm=True):
+#Build docker image with the Dockerfile and display the output
+image = cli.build(path='../build/', tag=imagename, rm=True)
+for line in image:
 	out = json.loads(line)
 	#sys.stdout.write('\r')
 	#print(out['stream'])

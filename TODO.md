@@ -1,7 +1,9 @@
 ## TODO
-* Upgrade script
-* Backup script
-* Restore script
+* Upgrade python script > tests
+* Backup python script > verif path + tests
+* Restore python script > verif path + tests
+* Dockerhub pull image
+* Question to define var in make packages script
 * supervisor
-* loop in build_container.py to auto add all port
-* script to auto generate ynh package (auto add <app> and <port>)
+* verif package with yunohost tool
+
